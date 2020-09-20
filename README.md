@@ -3,7 +3,7 @@ A save file for rpgmaker vx ace(currently only vx ace) that allows whatever rpgm
 No shenanigans, just drop the save file into whatever rpgmaker vx ace game you wish, drop the example Scripts.rvdata2 in, load save file 16, and you will have a main menu with a "new game" button that has been replaced with "test", not very impressive, but if you have your own version of rpgmaker vx ace, you can make scripts to overwrite scripts in already existing games, and distribute them without worrying about redistributing a creators work. 
 
 TODO: 
-ok maybe i was lying about the "whatever rpgmaker game", if the rpgmaker has script files that add additional fields to any of the 8 objects rpgmaker packs into a save file, it will crash. Fortunately, im going to upload a script that contains everything needed to build one of these save files, and once you save with that game, anyone can use that exact same save file to start the modloader.
+ok maybe i was lying about the "whatever rpgmaker game", if the rpgmaker has script files that add additional fields to any of the 8 objects rpgmaker packs into a save file, it will crash. Fortunately, im going to upload a script that contains everything needed to build one of these save files, and once you save with that game, anyone can use that exact same save file to start the modloader. Also the modloader only loads a single file right now and thats the Script.rvdata2 in the root directory of the game( the same one as the exe)
 
 WARNING:
 dont download files from strangers.
