@@ -7,7 +7,4 @@ TODO:
 ok maybe i was lying about the "whatever rpgmaker game", if the rpgmaker has script files that add additional fields to any of the 8 objects rpgmaker packs into a save file, it will crash. Fortunately, im going to upload a script that contains everything needed to build one of these save files, and once you save with that game, anyone can use that exact same save file to start the modloader. 
 The modloader only loads a single file right now and thats the Script.rvdata2 in the root directory of the game( the same one as the exe)
 Loading a save file to start a modloader kinda sucks ass, so im gonna release 2 other versions, one for mkxp, and one for unencrypted archives, they will both start at game start.
-
-WARNING:
-dont download files from strangers.
-While this shouldnt be against the TOS of Degica, im not a lawyer. In the making of this i did absolutely no reverse engineering of the encrypted archive, and since that is the only thing specifically mentioned as "not ok to reverse engineer" in the menual, i assumed save files, unencrypted data files, etc. Were completely alright to mess with. 
+do keep in mind that mkxp does not have dll support.
