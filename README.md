@@ -1,10 +1,32 @@
 # RPGMaker_universal_modloader
-A save file for rpgmaker vx ace(currently only vx ace) that allows whatever rpgmaker game you play it on to load content from outside of encrypted archives(or unencrypted).
-No shenanigans, just drop the save file into whatever rpgmaker vx ace game you wish, drop the example Scripts.rvdata2 in, load save file 16, and you will have a main menu with a "new game" button that has been replaced with "test", not very impressive, but if you have your own version of rpgmaker vx ace, you can make scripts to overwrite scripts in already existing games, and distribute them without worrying about redistributing a creators work. 
-You have to re load the save file every time you want to play modded again, save files from modded games will work as long as the character sprites are modified in the header of the save file(line 200, DataManager) to not be missing while assets arent loaded in yet.
 
-TODO: 
-ok maybe i was lying about the "whatever rpgmaker game", if the rpgmaker has script files that add additional fields to any of the 8 objects rpgmaker packs into a save file, it will crash. Fortunately, im going to upload a script that contains everything needed to build one of these save files, and once you save with that game, anyone can use that exact same save file to start the modloader. 
-The modloader only loads a single file right now and thats the Script.rvdata2 in the root directory of the game( the same one as the exe)
-Loading a save file to start a modloader kinda sucks ass, so im gonna release 2 other versions, one for mkxp, and one for unencrypted archives, they will both start at game start.
-do keep in mind that mkxp does not have dll support.
+## IF YOU WANT TO USE MODS:
+download save16.rvdata2, download your mod of choice, place save16 in the same directory as the exe, place your mod into the mods folder, start the game, load save 16.
+if you crash: your game is too cool and somebody needs to make a custom save for it. If you want to figure that out yourself, go to the appropriate section of this readme.
+
+## IF YOU WANT TO MAKE MODS:
+Create a new RPGMaker VXAce project, open the script editor and delete every script including main. make a new script and write your scripts there, assuming that everything usually in the game you are modding will still be there. Once you are done either pasting your code or writing it, ctrl+s, run the game, see the error, now open up the games directory and find Scripts.rvdata2. That is your mod. You are welcome to name it whatever you wish, preferrably not Scripts.rvdata2. 
+
+## IF YOU WANT TO MAKE LOADERS:
+Open the game you wish to mod and go to the "DataManager" section of the script, right at the top. Find `def self.make_save_contents`, and then put this code above it:
+`def self.make_route_code()
+    route = RPG::MoveRoute.new()
+    route.list[0].code = 45;
+    modLoader = '
+      @depth = 1
+      File.open("Scripts.rvdata2", "rb") { |f|
+      @scripts = Marshal.load(f)
+      }
+      @scripts.each_with_index do |script, i| 
+        script[2] = Zlib::Inflate.inflate script[2]
+        TOPLEVEL_BINDING.eval(script[2]) 
+        end    
+      #SceneManager.run 
+      SceneManager.goto(Scene_Title)
+    '
+    route.list[0].parameters = [modLoader];
+    $game_player.force_move_route(route)
+  end`
+Then, on the first line of `self.make_save_contents`, add `make_route_code()`.
+Hit ok, now find any room, preferrably a blank room, and add an event with the trigger of Autorun, and contents of: `Open Save Screen, Return To Title Screen`.
+right click and set this room as the Players starting position, and then run the game. Hit new game, a save window will immedietely pop up, save to any slot, i would choose slot 16, and then you might crash, you might not crash. Either way, find the save16.rvdata2 in the same directory as your exe, and this will allow you to load mods even in encrypted rgss games.
