@@ -1,4 +1,4 @@
-# RPGMaker_universal_modloader
+# RPGMaker(vxa, vx, xp)_universal_modloader
 
 ## IF YOU WANT TO USE MODS:
 ~~download save16.rvdata2, download your mod of choice, place save16 in the same directory as the exe, place your mod into the mods folder, start the game, load save 16.
